@@ -31,7 +31,6 @@ server.post('/', function(request, response) {
     };
 
     contatos.push(contato);
-
     response.status(201).send();
 })
 
