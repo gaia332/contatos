@@ -1,5 +1,5 @@
 const express = require('express');
-
+const { uuid } = require('uuidv4');
 const server = express();
 
 // HTPP REST
@@ -19,6 +19,12 @@ contatos = [];
 
 server.get('/', function(request, response) {
     response.json(contatos);
+})
+
+server.get('/:id', function(request, response) {
+    const id = request.params.id;
+    const result = contatos.filter(contato => contato.id == id);
+    response.json(result);
 })
 
 server.post('/', function(request, response) {
