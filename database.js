@@ -9,6 +9,7 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false}
 });
 
+/*
 const script = `
     CREATE TABLE IF NOT EXISTS contatos(
         ID serial primary key,
@@ -21,5 +22,27 @@ pool.query(script, function(error, result){
     if(error){
         throw error;
     }
+
     console.log("Tabela criada com sucesso.");
 });
+
+*/
+
+module.exports = {
+    async create(nome, telefone){
+        try{
+            const sql = 'INSERT INTO contatos (nome, telefone) VALUES ($1, $2)';
+            const result = await pool.query(sql, [nome, telefone]);
+            return result.rows;
+        } catch (error) {
+            console.log(error);
+            return -1;
+        }
+    },
+
+    async read() {
+        const sql = 'SELECT * FROM contatos ORDER BY nome';
+        const result = await pool.query(sql);
+        return result.rows;
+    }
+};

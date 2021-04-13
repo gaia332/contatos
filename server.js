@@ -1,6 +1,7 @@
 const express = require('express');
-const { uuid } = require('uuidv4');
 const server = express();
+
+const database = require('./database');
 
 // HTPP REST
 // GET (obtem um recurso json(javascript object notation))
@@ -15,9 +16,8 @@ const server = express();
 // middleware, esse transforma tudo em json
 server.use(express.json());
 
-contatos = [];
-
-server.get('/', function(request, response) {
+server.get('/', async function(request, response) {
+    const contatos = await database.read();
     response.json(contatos);
 })
 
