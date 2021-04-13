@@ -27,16 +27,12 @@ server.get('/:id', function(request, response) {
     response.json(result);
 })
 
-server.post('/', function(request, response) {
+server.post('/',  async function(request, response) {
     const nome = request.body.nome;
     const telefone = request.body.telefone;
 
-    contato = {
-        nome,
-        telefone
-    };
+    const result = await database.create(nome, telefone);
 
-    contatos.push(contato);
     response.status(201).send();
 })
 
